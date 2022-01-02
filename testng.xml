@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test name="SampleTestNG">
+        <classes>
+            <class name="PackageSuit.FirstTestClass">
+                <methods>
+                    <include name="firstTestMethod"/>
+                    <include name="secondTestMethod"/>
+                    <include name="thirdTestMethod"/>
+                </methods>
+            </class>
+            <class name="PackageSuit.SecondTestClass">
+                <methods>
+                    <include name="firstTestOfSecondSuit"/>
+                    <include name="secondTestOfSecondSuit"/>
+                    <include name="thirdTestOfSecondSuit"/>
+                </methods>
+            </class>
+            <class name="SecondPackageSuit.FirstClass">
+                <methods>
+                    <include name="firstTestMethod"/>
+                    <include name="secondTestMethod"/>
+                    <include name="thirdTestMethod"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
