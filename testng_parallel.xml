@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel Test Suite" parallel="methods" thread-count="2">
+    <test name="SampleTestNG">
+        <classes>
+            <class name="SecondPackageSuit.FirstClass">
+                <methods>
+                    <include name="secondTestMethod"/>
+                    <include name="thirdTestMethod"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

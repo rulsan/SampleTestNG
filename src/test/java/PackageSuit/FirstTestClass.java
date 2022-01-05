@@ -1,17 +1,29 @@
 package PackageSuit;
 
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
-public class FirstTestClass {
+// It is used by SimpleTestFactory
+public class FirstTestClass extends TestClass{
+    private int param;
+
+    public FirstTestClass() {
+        this.param = 0;
+    }
+
+    public FirstTestClass(int param) {
+        this.param = param;
+    }
 
     @Test
     public void firstTestMethod(){
-        System.out.println("First TestNG test");
+        int opValue = param + 1;
+        System.out.println("First TestNG test output: " + opValue);
     }
 
     @Test
     public void secondTestMethod(){
-        System.out.println("Second TestNG test");
+        int opValue = param + 2;
+        System.out.println("Second TestNG test output: " + opValue);
     }
 
     @Test(groups = {"smoke"})

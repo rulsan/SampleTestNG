@@ -2,7 +2,7 @@ package PackageSuit;
 
 import org.testng.annotations.Test;
 
-public class SecondTestClass {
+public class SecondTestClass extends TestClass {
 
     @Test
     public void firstTestOfSecondSuit(){
@@ -17,5 +17,10 @@ public class SecondTestClass {
     @Test
     public void thirdTestOfSecondSuit(){
         System.out.println("Third TestNG test of Second Class");
+    }
+
+    @Test(dataProvider = "data-provider",dataProviderClass=SecondPackageSuit.DataProviderClass.class)
+    public void testMethod(String data) {
+        System.out.println("Data is: " + data);
     }
 }
