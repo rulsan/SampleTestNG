@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class hrTwoRefactored {
 
     private WebDriver driver;
@@ -16,6 +18,12 @@ public class hrTwoRefactored {
     public void setUp(){
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver96.exe");
         driver = new ChromeDriver();
+
+        // deprecated waiters
+//        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         driver.manage().window().maximize();
         driver.get("https://www.i.ua");
     }
