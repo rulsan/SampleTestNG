@@ -8,6 +8,10 @@
     <artifactId>SampleTestNG</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <aspectj.version>1.9.9.1</aspectj.version>
+    </properties>
+
 <!--it conflicts with WebDriver-->
 <!--    <properties>-->
 <!--        <maven.compiler.source>16</maven.compiler.source>-->
@@ -18,7 +22,7 @@
         <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>7.4.0</version>
+                <version>7.6.0</version>
                 <scope>test</scope>
         </dependency>
 
@@ -26,7 +30,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.1.1</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
@@ -44,7 +48,66 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.4.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.4.1</version>
+        </dependency>
+
+        <!-- Allure Reporter -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.18.1</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+    <profiles>
+        <profile>
+            <!-- use 'mvn test -P testng' for running -->
+            <id>testng</id>
+            <activation>
+                <property>
+                    <name>SUITES</name>
+                </property>
+            </activation>
+            <properties>
+                <suites>testng</suites>
+            </properties>
+        </profile>
+        <profile>
+            <id>testng_smoke</id>
+            <activation>
+                <property>
+                    <name>SUITES</name>
+                </property>
+            </activation>
+            <properties>
+                <suites>testng_smoke</suites>
+            </properties>
+        </profile>
+        <profile>
+            <id>testng_package</id>
+            <activation>
+                <property>
+                    <name>SUITES</name>
+                </property>
+            </activation>
+            <properties>
+                <suites>testng_package</suites>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
@@ -61,10 +124,42 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <!-- Run 'mvn site' for genereting the report -->
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+                <configuration>
+                    <testSourceDirectory>${basedir}/src/test/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/test-classes/</testClassesDirectory>
+<!--                    <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>-->
+<!--                    <testFailureIgnore>false</testFailureIgnore>-->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suites}.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
+
+    <!-- Allure Reporter -->
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <reportVersion>2.18.1</reportVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

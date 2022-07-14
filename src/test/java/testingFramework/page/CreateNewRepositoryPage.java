@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class CreateNewRepositoryPage extends AbstractPage{
     private final String BASE_URL = "http://www.github.com.new";
@@ -31,7 +32,7 @@ public class CreateNewRepositoryPage extends AbstractPage{
     }
 
     public boolean isCurrentRepositoryEmpty(){
-        WebElement labelEmptyRepoSetupOption = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+        WebElement labelEmptyRepoSetupOption = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
                 .until(ExpectedConditions.presenceOfElementLocated(labelEmptyRepoSetupOptionLocator));
         return labelEmptyRepoSetupOption.isDisplayed();
     }

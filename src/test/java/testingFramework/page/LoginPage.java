@@ -37,4 +37,11 @@ public class LoginPage extends AbstractPage{
         return new MainPage(driver);
     }
 
+    public MainPage login(String name, String password){
+        inputLogin.sendKeys(name);
+        inputPassword.sendKeys(password);
+        buttonSubmit.click();
+        return new MainPage(driver);
+    }
+
 }
